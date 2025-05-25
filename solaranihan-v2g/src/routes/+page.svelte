@@ -91,99 +91,117 @@
         Energy Overview
       </h2>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-4">
-        <!-- Solar Generation Card -->
-        <div style="background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1rem; margin-bottom: 1rem;">
-          <div style="padding-bottom: 0.75rem;">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <div style="height: 2rem; width: 2rem; display: flex; align-items: center; justify-content: center;">
-                  <Sun class="h-5 w-5" style="color: #f59e0b;" />
-                </div>
-                <div>
-                  <h3 style="font-weight: 500;">Solar Generation</h3>
-                  <p style="font-size: 0.875rem; color: #6b7280;">Current output</p>
-                </div>
+      <!-- Solar Generation Card (Full Width) -->
+      <div style="background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding: 1rem; margin-bottom: 1rem;">
+        <div style="padding-bottom: 0.75rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div style="height: 2rem; width: 2rem; display: flex; align-items: center; justify-content: center;">
+                <Sun class="h-5 w-5" style="color: #f59e0b;" />
               </div>
-              <div style="margin-left: auto; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 9999px; background-color: ${solarPercentage > 50 ? '#10b981' : '#6b7280'}; color: white;">
-                {solarPercentage > 50 ? 'High' : 'Moderate'}
+              <div>
+                <h3 style="font-weight: 500;">Solar Generation</h3>
+                <p style="font-size: 0.875rem; color: #6b7280;">Current output</p>
               </div>
             </div>
-          </div>
-          <div style="height: 0.5rem; background-color: #e2e8f0; border-radius: 9999px; margin-top: 0.5rem;">
-            <div style="height: 100%; background-color: #f59e0b; border-radius: 9999px; width: {solarPercentage}%;"></div>
-          </div>
-          <p class="text-xs mt-2" style="color: #64748b;">{solarPercentage.toFixed(0)}% of capacity</p>
-        </div>
-        
-        <!-- Grid Price Card -->
-        <div class="dashboard-card">
-          <div class="pb-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <div class="h-8 w-8 flex items-center justify-center">
-                  <Activity class="h-5 w-5" style="color: #3b82f6;" />
-                </div>
-                <h3 class="text-sm font-medium">Grid Price</h3>
-              </div>
-              <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 9999px; background-color: {priceIndicator === 'high' ? '#fee2e2' : '#f1f5f9'}; color: {priceIndicator === 'high' ? '#ef4444' : '#64748b'};">
-                {priceIndicator === 'high' ? 'High' : 'Normal'}
-              </span>
-            </div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold">₱{$terminalStats.gridPrice.toFixed(2)} <span class="text-sm font-normal" style="color: #64748b;">/kWh</span></div>
-            <div class="flex items-center gap-1 mt-2 text-xs">
-              {#if priceIndicator === 'high'}
-                <TrendingUp class="h-3 w-3" style="color: #ef4444;" />
-                <span style="color: #ef4444;">Peak pricing active</span>
-              {:else}
-                <TrendingDown class="h-3 w-3" style="color: #10b981;" />
-                <span style="color: #10b981;">Off-peak rates</span>
-              {/if}
+            <div style="margin-left: auto; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 9999px; background-color: ${solarPercentage > 50 ? '#10b981' : '#6b7280'}; color: white;">
+              {solarPercentage > 50 ? 'High' : 'Moderate'}
             </div>
           </div>
         </div>
-        
-        <!-- Battery Capacity Card -->
-        <div class="dashboard-card">
-          <div class="pb-3">
-            <div class="flex items-center gap-2">
-              <div class="h-8 w-8 flex items-center justify-center">
-                <Battery class="h-5 w-5" style="color: #10b981;" />
-              </div>
-              <h3 class="text-sm font-medium">Available Battery</h3>
-            </div>
+        <div style="height: 0.5rem; background-color: #e2e8f0; border-radius: 9999px; margin-top: 0.5rem;">
+          <div style="height: 100%; background-color: #f59e0b; border-radius: 9999px; width: {solarPercentage}%;"></div>
+        </div>
+        <p class="text-xs mt-2" style="color: #64748b;">{solarPercentage.toFixed(0)}% of capacity</p>
+      </div>
+      
+      <!-- Score Card Row -->
+      <div style="margin-top: 1.5rem; padding: 0; display: flex; gap: 1rem;">
+        <!-- Grid Price Score Card -->
+        <div class="dashboard-card" style="flex: 1; padding: 0; overflow: hidden; position: relative; border-top: 4px solid #3b82f6;">
+          <div style="position: absolute; top: 0; right: 0; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-bottom-left-radius: 0.5rem; background-color: {priceIndicator === 'high' ? '#fee2e2' : '#f1f5f9'}; color: {priceIndicator === 'high' ? '#ef4444' : '#64748b'};">
+            {priceIndicator === 'high' ? 'High' : 'Normal'}
           </div>
-          <div>
-            <div class="text-2xl font-bold">{$terminalStats.availableBatteryCapacity.toFixed(0)} <span class="text-sm font-normal" style="color: #64748b;">kWh</span></div>
-            <div style="height: 0.5rem; background-color: #e2e8f0; border-radius: 9999px; margin-top: 0.5rem;">
-              <div style="height: 100%; background-color: #10b981; border-radius: 9999px; width: {$terminalStats.availableBatteryCapacity / $terminalStats.totalBatteryCapacity * 100}%;"></div>
+          
+          <div style="padding: 1.5rem; display: flex; flex-direction: column; min-height: 220px;">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 flex items-center justify-center rounded-full" style="background-color: rgba(59, 130, 246, 0.1);">
+                <Activity class="h-7 w-7" style="color: #3b82f6;" />
+              </div>
+              <h3 class="text-base font-medium">Grid Price</h3>
             </div>
-            <p class="text-xs mt-2" style="color: #64748b;">of {$terminalStats.totalBatteryCapacity} kWh total</p>
+            
+            <div class="flex-grow flex flex-col justify-center" style="margin-top: 1rem;">
+              <div style="font-size: 4.5rem; line-height: 1; font-weight: 800; text-align: center; color: #3b82f6; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                ₱{$terminalStats.gridPrice.toFixed(2)}
+              </div>
+              <div class="text-base text-center mt-2" style="color: #64748b;">/kWh</div>
+              
+              <div class="flex items-center justify-center gap-2 mt-4 text-xs">
+                {#if priceIndicator === 'high'}
+                  <div class="flex items-center justify-center px-2 py-1 rounded-full" style="background-color: rgba(239, 68, 68, 0.1);">
+                    <TrendingUp class="h-3 w-3 mr-1" style="color: #ef4444;" />
+                    <span style="color: #ef4444;">Peak pricing active</span>
+                  </div>
+                {:else}
+                  <div class="flex items-center justify-center px-2 py-1 rounded-full" style="background-color: rgba(16, 185, 129, 0.1);">
+                    <TrendingDown class="h-3 w-3 mr-1" style="color: #10b981;" />
+                    <span style="color: #10b981;">Off-peak rates</span>
+                  </div>
+                {/if}
+              </div>
+            </div>
           </div>
         </div>
         
-        <!-- Community Earnings Card -->
-        <div class="dashboard-card">
-          <div class="pb-3">
-            <div class="flex items-center gap-2">
-              <div class="h-8 w-8 flex items-center justify-center">
-                <Coins class="h-5 w-5" style="color: #8b5cf6;" />
+        <!-- Battery Capacity Score Card -->
+        <div class="dashboard-card" style="flex: 1; padding: 0; overflow: hidden; position: relative; border-top: 4px solid #10b981;">
+          <div style="padding: 1.5rem; display: flex; flex-direction: column; min-height: 220px;">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 flex items-center justify-center rounded-full" style="background-color: rgba(16, 185, 129, 0.1);">
+                <Battery class="h-7 w-7" style="color: #10b981;" />
               </div>
-              <h3 class="text-sm font-medium">Community Earnings</h3>
+              <h3 class="text-base font-medium">Available Battery</h3>
+            </div>
+            
+            <div class="flex-grow flex flex-col justify-center" style="margin-top: 1rem;">
+              <div style="font-size: 4.5rem; line-height: 1; font-weight: 800; text-align: center; color: #10b981; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                {$terminalStats.availableBatteryCapacity.toFixed(0)}
+              </div>
+              <div class="text-base text-center mt-2" style="color: #64748b;">kWh</div>
+              
+              <div style="height: 0.5rem; background-color: #e2e8f0; border-radius: 9999px; margin: 1rem auto; width: 80%;">
+                <div style="height: 100%; background-color: #10b981; border-radius: 9999px; width: {$terminalStats.availableBatteryCapacity / $terminalStats.totalBatteryCapacity * 100}%;"></div>
+              </div>
+              <p class="text-xs text-center" style="color: #64748b;">of {$terminalStats.totalBatteryCapacity} kWh total</p>
             </div>
           </div>
-          <div>
-            <div class="text-2xl font-bold">₱{$terminalStats.communityEarnings.toFixed(0)}</div>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 0.5rem; font-size: 0.75rem;">
-              <div class="flex items-center" style="color: #10b981;">
-                <TrendingUp class="h-3 w-3 mr-1" />
-                +{$terminalStats.tokensMinted} ARAW
+        </div>
+        
+        <!-- Community Earnings Score Card -->
+        <div class="dashboard-card" style="flex: 1; padding: 0; overflow: hidden; position: relative; border-top: 4px solid #8b5cf6;">
+          <div style="padding: 1.5rem; display: flex; flex-direction: column; min-height: 220px;">
+            <div class="flex items-center gap-3">
+              <div class="h-12 w-12 flex items-center justify-center rounded-full" style="background-color: rgba(139, 92, 246, 0.1);">
+                <Coins class="h-7 w-7" style="color: #8b5cf6;" />
               </div>
-              <div class="flex items-center" style="color: #f97316;">
-                <TrendingDown class="h-3 w-3 mr-1" />
-                -{$terminalStats.tokensBurned} ARAW
+              <h3 class="text-base font-medium">Community Earnings</h3>
+            </div>
+            
+            <div class="flex-grow flex flex-col justify-center" style="margin-top: 1rem;">
+              <div style="font-size: 4.5rem; line-height: 1; font-weight: 800; text-align: center; color: #8b5cf6; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                ₱{$terminalStats.communityEarnings.toFixed(0)}
+              </div>
+              
+              <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                <div class="flex items-center justify-center px-2 py-1 rounded-full" style="background-color: rgba(16, 185, 129, 0.1); font-size: 0.75rem;">
+                  <TrendingUp class="h-3 w-3 mr-1" style="color: #10b981;" />
+                  <span style="color: #10b981;">+{$terminalStats.tokensMinted} ARAW</span>
+                </div>
+                <div class="flex items-center justify-center px-2 py-1 rounded-full" style="background-color: rgba(249, 115, 22, 0.1); font-size: 0.75rem;">
+                  <TrendingDown class="h-3 w-3 mr-1" style="color: #f97316;" />
+                  <span style="color: #f97316;">-{$terminalStats.tokensBurned} ARAW</span>
+                </div>
               </div>
             </div>
           </div>
